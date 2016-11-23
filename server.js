@@ -92,8 +92,8 @@ wss.on('connection', function(wsn)
 		msg_obj = JSON.parse(msg);
     if(msg_obj.to == 1)
     {
-        msg_obj.to = msg_obj.from
-        msg_obj.message = model.getResponseToQuestion(trainedClassifier,msg_obj.message);
+      msg_obj.to = msg_obj.from
+      msg_obj.message = model.getResponseToQuestion(trainedClassifier,msg_obj.message);
     }
     msg_obj.status_code = 200;
     wsn_to = connections[msg_obj.to];
