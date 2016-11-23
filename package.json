@@ -1,0 +1,32 @@
+{
+  "name": "talket",
+  "version": "1.0.0",
+  "description": "Introductory project on full duplex bidirectional communication protocol",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ganeshramks/talket.git"
+  },
+  "author": "Ganeshram",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ganeshramks/talket/issues"
+  },
+  "homepage": "https://github.com/Ganeshramks/talket#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-material": "^1.1.0-rc.5",
+    "angular-route": "^1.5.8",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "multer": "^1.2.0",
+    "natural-brain": "^0.2.3",
+    "ws": "^1.1.1"
+  }
+}
