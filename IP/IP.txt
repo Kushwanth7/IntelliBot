@@ -1,0 +1,8 @@
+Description of the System:
+
+The system proposed (IntelliBot), is an intelligent chat bot machine powered by state-of-the-art Artificial Intelligence and Machine Learning techniques. In the simplest words, IntelliBot has the capability to predict what a user would say while chatting to another person, by learning on the user's past history of chat conversations. As the user converses more and more, the accuracy of InteliBot also increases, making its use easy. We propose to use IntelliBot for two scenarios - 1) MOOC and 2) Internal Tech Support. 
+
+In MOOCs, managing large number of student virtually is a hard challenge yet to be solved efficiently. Professors/TAs cannot respond to every student's questions about coursework/assignments. We propose to incorporate IntelliBot in MOOC as an interface between students and Professors/TAs. This will solve two pain points - one for students so that they get instant replies and second for the Professors/TAs for better manageability.
+
+Internal tech support in large companies involves work from lot of different professionals and tech support problems are largely redundant in nature. Apart from that, it may be hard to find the appropriate person to reach out to, in case of a problem. We propose to automate questions with high redundancy using IntelliBot. Moreover, IntelliBot can help in finding the appropriate person to get help from, based on past chat conversation experiences. 
+
