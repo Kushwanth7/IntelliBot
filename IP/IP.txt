@@ -6,3 +6,23 @@ In MOOCs, managing large number of student virtually is a hard challenge yet to 
 
 Internal tech support in large companies involves work from lot of different professionals and tech support problems are largely redundant in nature. Apart from that, it may be hard to find the appropriate person to reach out to, in case of a problem. We propose to automate questions with high redundancy using IntelliBot. Moreover, IntelliBot can help in finding the appropriate person to get help from, based on past chat conversation experiences. 
 
+Value Producing features:
+
+1} Claim: We propose a software technology that saves time while searching for answers to coursework related questions, by giving instant replies.
+   How is it different from previous technologies?: 
+	There have been startups which have AI chatbots assisting human agents for customer support (https://twitter.com/TwylaHelps). However, there has been no technology yet that automates answers to questions asked in MOOCs by students, by learning over Professor/TA answers.
+
+
+2} Claim: We propose a software technology that gives an accurate answer to a question that an actual person would have answered.
+   How is it different from previous technologies?: 
+
+   Previous technologies have largely relied on enhanced search mechanisms to give an appropriate accurate answer to a question. Personal assistants in internal tech support search through wiki using question intent extraction. IntelliBot is quite different in a sense that it "knows" how a person will respond to a given question. Whenever a question is asked, IntelliBot assesses the right person who can answer the question, and mimics him/her to give a reply back to the user. This personalization increases relevancy/accuracy of IntelliBot answers and also adds a personal touch to them. 
+
+3} Claim: We propose a software technology that helps in scaling the management of Massive Open Online Courses (MOOCs) and Internal Tech Support for large corporations.
+   How is it different from previous technologies?: 
+   We are the first startup entering the MOOC scene for scaling management by introducing our IntelliBot platform. Previous technologies include softwares like Piazza for courses' management or internal company wiki for searching appropriate information. It is necessary to note that both these technologies do not scale well for large MOOCs and corporations since time is lost while searching through large amounts of piazza posts or large documentation in wiki. IntelliBot learns from past chat conversations (eg, Piazza posts) and so it can present the right answer to user very fast instead of user doing the search himself/herself.
+
+4} Claim: We propose a chat software technology that improves performance automatically over time by learning current chat conversations.
+   How is it different from previous technologies?: 
+
+   Previous technologies have provided automated personal assistants (like Siri, Cortana etc.) to manage tasks. There have been chat bots for providing customer service that are preprogrammed to answer specific questions. IntelliBot, learns newer responses to give to users based on past correct answers with different users. The learning is done using state-of-the-art Neural Networks trained over data like piazza posts, forum posts etc.
