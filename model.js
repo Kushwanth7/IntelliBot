@@ -1,10 +1,10 @@
 var BrainJSClassifier = require('natural-brain');
-//var sleep = require('sleep')
+var sleep = require('sleep')
 module.exports = {}
 
 module.exports.getResponseToQuestion = function(classifier,question)
 {
-    //sleep.sleep(5);
+    sleep.sleep(5);
     var res = classifier.classify(question);
     console.log(res);
     return res.label;
