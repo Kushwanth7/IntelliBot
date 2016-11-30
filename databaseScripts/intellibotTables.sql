@@ -3,7 +3,7 @@ USE Intellibot;
 CREATE TABLE IF NOT EXISTS Intellibot.UserProfile
 (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	phone_number varchar(500),
+	phone_number varchar(500) unique,
 	userPassword varchar(500),
 	isProfessor boolean
 );

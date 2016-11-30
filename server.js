@@ -44,19 +44,27 @@ app.post('/login', function(req,res)
 
 	connection.query(query, function(err,rows,fields)
 	{
-		var returnedObj = rows[0];
-		if(returnedObj.userPassword != userObj.password)
+		if(rows.length <= 0)
 		{
-			res.status(401).end("UnAuthorized");
+			//User is not registered
+			res.status(400).end("Not registered");
 		}
 		else
 		{
-			response = {};
-			response.success = true;
-			user.id = returnedObj.id;
-			user.phone_number = returnedObj.phone_number;
-			response.user = user;
-			res.send(JSON.stringify(response));
+			var returnedObj = rows[0];
+			if(returnedObj.userPassword != userObj.password)
+			{
+				res.status(401).end("UnAuthorized");
+			}
+			else
+			{
+				response = {};
+				response.success = true;
+				user.id = returnedObj.id;
+				user.phone_number = returnedObj.phone_number;
+				response.user = user;
+				res.send(JSON.stringify(response));
+			}
 		}
 	});
 });
@@ -64,7 +72,6 @@ app.post('/login', function(req,res)
 app.post('/register', function(req, res)
 {
 		var userObj = req.body.user;
-		console.log(userObj);
 		var query = "insert into Intellibot.UserProfile(phone_number,userPassword,isProfessor) values(" + "'" + userObj.name + "','" + userObj.password + "'," + "false)";
 		var connection = mysql.createConnection({
 			host : 'localhost',
@@ -83,7 +90,7 @@ app.post('/register', function(req, res)
 		{
 			if(err)
 			{
-				res.status(500).end("Internal server error");
+				res.status(400).end("User already registered");
 			}
 			else
 			{

@@ -4,6 +4,11 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 
 	$scope.user_list = [];
 
+	$scope.$on("Error", function(event, error)
+	{
+		$scope.errMessage = error.data;
+	});
+
 	$scope.login = function(user)
 	{
 		$http.post('/login', {
