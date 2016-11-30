@@ -67,17 +67,33 @@ app.post('/login', function(req,res)
 
 app.post('/register', function(req, res)
 {
-	user = {};
-	user.id = ++count;
-	user.phone_number = req.body.phone_number;
-	users.push(user);
+		var userObj = req.body.user;
+		console.log(userObj);
+		var query = "insert into Intellibot.UserProfile(phone_number,userPassword,isProfessor) values(" + "'" + userObj.name + "','" + userObj.password + "'," + "false)";
+		var connection = mysql.createConnection({
+			host : 'localhost',
+			user : 'root',
+			password : globals.databasePassword,
+			database : 'EntroChef'
+		});
 
-	response = {};
-	response.success = true;
-	response.user = user;
+		connection.connect(
+			function(err)
+			{
+			}
+		);
 
-	res.send(JSON.stringify(response));
-
+		connection.query(query, function(err,rows,fields)
+		{
+			if(err)
+			{
+				res.status(500).end("Internal server error");
+			}
+			else
+			{
+				res.status(200).end("OK");
+			}
+		});
 });
 
 app.get('/user_list', function(req, res)

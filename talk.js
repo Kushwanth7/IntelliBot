@@ -27,6 +27,15 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 
 	$scope.signUpUser = function(user)
 	{
+		$http.post('/register', {
+		user: user
+	}).then(function(response)
+		{
+			window.location.hash="#/";
+		},function(error)
+		{
+			console.error(error)
+		});
 
 	};
 
