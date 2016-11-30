@@ -15,12 +15,17 @@
 	<body ng-app="talket">
 		<div ng-controller="talketrl">
 			<md-toolbar class="md-whiteframe-z2">
-				<div class="md-tollbar-tools" layout layout-align="left center">
+				<div class="md-tollbar-tools" layout="column">
 					&nbsp;&nbsp;&nbsp;&nbsp;
+					<div flex="10" style="font-family:cursive">
 					<md-button class="md-icon-button" aria-label="sidenavSettings" ng-click="showSideNav()">
 						<md-icon md-svg-icon="icons/menu.svg"></md-icon>
 					</md-button>
 					<h3 flex-offset="5"><span>Intellibot</span></h3>
+					</div>
+					<div flex layout layout-align="end" hide-xs>
+							<md-button ng-href="/#/signup" class="md-raised md-accent">Sign Up Now</md-button>
+					</div>
 				</div>
 			</md-toolbar>
 			<br><br>

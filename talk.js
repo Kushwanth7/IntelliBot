@@ -4,6 +4,11 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 
 	$scope.user_list = [];
 
+	$scope.login = function(user)
+	{
+		console.log(user);
+	}
+
 	$scope.signUpUser = function(name)
 	{
 		if (name===undefined || name.length == 0)
