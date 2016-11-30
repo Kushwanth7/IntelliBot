@@ -10,13 +10,13 @@
 					</md-list>
 				</div>
 			</md-content>
-		<div style="padding:1em"> Message to : {{to_phone_number}}</div>
+		<div style="padding:1em"> Message to : {{user.phone_number}}</div>
 		</div>
 	</div>
 	<div class="chat-box md-whiteframe-z2">
 		<div id="chatLog" class="chat-log"></div>
 		<div class="chat-form">
 			<input type="text" placeholder="Enter message" value="" class="msg-input" id="chatInput" ng-keypress="sendMsgHandler($event, to_phone_number)">
-		</div> 
+		</div>
 	</div>
 </div>

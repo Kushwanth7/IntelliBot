@@ -10,14 +10,8 @@ server = http.createServer();
 globals = require('./globals');
 app = express();
 
-user ={};
-users = [];
-count = 0;
+user = {};
 
-ta_user = {};
-ta_user.id = ++count;
-ta_user.phone_number = "TA";
-users.push(ta_user);
 
 app.use(express.static(path.join(__dirname+'/')));
 
@@ -59,6 +53,8 @@ app.post('/login', function(req,res)
 		{
 			response = {};
 			response.success = true;
+			user.id = returnedObj.id;
+			user.phone_number = returnedObj.phone_number;
 			response.user = user;
 			res.send(JSON.stringify(response));
 		}
@@ -142,7 +138,6 @@ wss.on('connection', function(wsn)
   //User is the object who is logged in
 	wsn.user_details = user;
 	connections[user.id] = wsn;
-
 	request = wsn.upgradeReq;
 	if (request.headers.origin != 'http://localhost:8000') {
 		wsn.close();
@@ -156,7 +151,7 @@ wss.on('connection', function(wsn)
 	wsn.on("message", function(msg)
   {
 		msg_obj = JSON.parse(msg);
-    if(msg_obj.to == 1)
+    if(msg_obj.to == 2)
     {
       msg_obj.to = msg_obj.from
       msg_obj.message = model.getResponseToQuestion(trainedClassifier,msg_obj.message);

@@ -14,4 +14,6 @@ values("Jebara","password123",true);
 insert into Intellibot.UserProfile(phone_number,userPassword,isProfessor)
 values("TA","password123",false);
 
+select id,phone_number,userPassword from Intellibot.UserProfile where phone_number = 'jebara'
+
 
