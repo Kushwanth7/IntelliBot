@@ -5,9 +5,9 @@ url = require('url');
 path = require('path');
 webSocket = require('ws');
 model = require('./model.js');
-
+mysql = require('mysql');
 server = http.createServer();
-
+globals = require('./globals');
 app = express();
 
 user ={};
@@ -32,8 +32,8 @@ app.get('/', function(req,res){
 });
 
 
-app.post('/register', function(req, res){
-
+app.post('/register', function(req, res)
+{
 	user = {};
 	user.id = ++count;
 	user.phone_number = req.body.phone_number;
@@ -47,12 +47,29 @@ app.post('/register', function(req, res){
 
 });
 
-app.get('/user_list', function(req, res){
-	response = {};
-	response.success=true;
-	response.user_list=users;
-	res.send(JSON.stringify(response));
+app.get('/user_list', function(req, res)
+{
+	var query = "select * from Intellibot.UserProfile";
+	var connection = mysql.createConnection({
+		host : 'localhost',
+		user : 'root',
+		password : globals.databasePassword,
+		database : 'EntroChef'
+	});
 
+	connection.connect(
+		function(err)
+		{
+		}
+	);
+
+	connection.query(query, function(err,rows,fields)
+	{
+		response = {};
+		response.success=true;
+		response.user_list=rows;
+		res.send(JSON.stringify(response));
+	});
 });
 
 function broadcast(broadcast_msg_obj, from)

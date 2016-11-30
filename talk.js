@@ -28,9 +28,10 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 					$http({
 						method: "GET",
 						url: "user_list",
-					}).then(function(success){
-
-						$scope.user_list = success.data.user_list;
+					}).then(function(success)
+					{
+					 	console.log(success.data.user_list);
+					 	$scope.user_list = success.data.user_list;
 
 					}, function(error){console.error(error)});
 
