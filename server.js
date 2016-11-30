@@ -31,6 +31,39 @@ app.get('/', function(req,res){
 	res.sendFile(path.join(__dirname+'/talk.html'));
 });
 
+app.post('/login', function(req,res)
+{
+	userObj = req.body.user;
+	var query = "select id,phone_number,userPassword from Intellibot.UserProfile where phone_number = " + "'" + userObj.name + "'";
+	var connection = mysql.createConnection({
+		host : 'localhost',
+		user : 'root',
+		password : globals.databasePassword,
+		database : 'EntroChef'
+	});
+
+	connection.connect(
+		function(err)
+		{
+		}
+	);
+
+	connection.query(query, function(err,rows,fields)
+	{
+		var returnedObj = rows[0];
+		if(returnedObj.userPassword != userObj.password)
+		{
+			res.status(401).end("UnAuthorized");
+		}
+		else
+		{
+			response = {};
+			response.success = true;
+			response.user = user;
+			res.send(JSON.stringify(response));
+		}
+	});
+});
 
 app.post('/register', function(req, res)
 {

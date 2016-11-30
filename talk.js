@@ -6,42 +6,28 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 
 	$scope.login = function(user)
 	{
-		console.log(user);
-	}
-
-	$scope.signUpUser = function(name)
-	{
-		if (name===undefined || name.length == 0)
+		$http.post('/login', {
+		user: user
+	}).then(function(response)
 		{
-			$mdToast.show(
-				$mdToast.simple()
-				.position('end')
-				.textContent("Please enter a valid name")
-				.hideDelay(3000)
-			);
-		} else {
-			$http({
-				method: "POST",
-				url: "register",
-				data: {
-					phone_number:name
-				}
-			}).then(function(response){
-				window.location.hash="#/chat";
+			window.location.hash="#/chat";
 				$scope.my_details = response.data.user;
 				$scope.chat($scope.my_details);
 					$http({
 						method: "GET",
 						url: "user_list",
-					}).then(function(success)
-					{
-					 	console.log(success.data.user_list);
-					 	$scope.user_list = success.data.user_list;
+					}).then(function(success){
+
+						$scope.user_list = success.data.user_list;
 
 					}, function(error){console.error(error)});
 
 			}, function(error){});
-		}
+	}
+
+	$scope.signUpUser = function(user)
+	{
+
 	};
 
 	$scope.showSideNav = function(){
