@@ -6,6 +6,10 @@
 		<md-input-container flex-offset="5">
 			<input ng-model="user.password" type="password" placeholder="Enter the password" required>
 		</md-input-container>
-		<md-button ng-click="signUpUser(user)">SIGN UP</md-button>
+		<md-card-actions layout layout-align="end center">
+			<div class="md-caption" style="color:#3F51B5;margin-right:10%;" ng-show="redirectingRegister">Please wait...</div>
+			<div class="md-caption" style="color:red" ng-show="errRegister">{{errMessage}}</div>
+			<md-button ng-click="signUpUser(user)">SIGN UP</md-button>
+		</md-card-actions>
 	</form>
 </div>

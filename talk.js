@@ -7,6 +7,8 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 	$scope.redirecting = 0;
 	$scope.busy = 0;
 	$scope.hideSignUpButton = false;
+	$scope.redirectingRegister = 0;
+	$scope.errRegister = 0;
 
 	$scope.login = function(user)
 	{
@@ -48,6 +50,8 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 		},function(error)
 		{
 			console.error(error)
+			$scope.errRegister = 1;
+			$scope.errMessage = error.data;
 		});
 
 	};
