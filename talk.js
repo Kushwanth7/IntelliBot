@@ -6,6 +6,7 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 	$scope.err = 0;
 	$scope.redirecting = 0;
 	$scope.busy = 0;
+	$scope.hideSignUpButton = false;
 
 	$scope.login = function(user)
 	{
@@ -13,6 +14,7 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 		user: user
 	}).then(function(response)
 		{
+			$scope.hideSignUpButton = true;
 			$scope.redirecting = 1;
 			window.location.hash="#/chat";
 			$scope.my_details = response.data.user;
