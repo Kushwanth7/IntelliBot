@@ -3,11 +3,9 @@ app = angular.module("talket",['ngMaterial', 'ngRoute']);
 app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", function($scope, $http, $mdSidenav, $mdToast){
 
 	$scope.user_list = [];
-
-	$scope.$on("Error", function(event, error)
-	{
-		$scope.errMessage = error.data;
-	});
+	$scope.err = 0;
+	$scope.redirecting = 0;
+	$scope.busy = 0;
 
 	$scope.login = function(user)
 	{
@@ -15,9 +13,10 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 		user: user
 	}).then(function(response)
 		{
+			$scope.redirecting = 1;
 			window.location.hash="#/chat";
-				$scope.my_details = response.data.user;
-				$scope.chat($scope.my_details);
+			$scope.my_details = response.data.user;
+			$scope.chat($scope.my_details);
 					$http({
 						method: "GET",
 						url: "user_list",
@@ -25,9 +24,16 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 
 						$scope.user_list = success.data.user_list;
 
-					}, function(error){console.error(error)});
+					}, function(error)
+					{
+						console.log(error);
+					});
 
-			}, function(error){});
+			}, function(error)
+			{
+				$scope.err=1;
+				$scope.errMessage = error.data;
+			});
 	}
 
 	$scope.signUpUser = function(user)

@@ -47,14 +47,14 @@ app.post('/login', function(req,res)
 		if(rows.length <= 0)
 		{
 			//User is not registered
-			res.status(400).end("Not registered");
+			res.status(400).end("user is not registered");
 		}
 		else
 		{
 			var returnedObj = rows[0];
 			if(returnedObj.userPassword != userObj.password)
 			{
-				res.status(401).end("UnAuthorized");
+				res.status(401).end("Incorrect user name or password");
 			}
 			else
 			{
