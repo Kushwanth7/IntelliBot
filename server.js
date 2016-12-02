@@ -4,12 +4,11 @@ body_parser = require('body-parser');
 url = require('url');
 path = require('path');
 webSocket = require('ws');
-model = require('./model.js');
 mysql = require('mysql');
 server = http.createServer();
 globals = require('./globals');
 app = express();
-
+var BrainJSClassifier = require('natural-brain');
 user = {};
 
 
@@ -17,11 +16,16 @@ app.use(express.static(path.join(__dirname+'/')));
 
 json_parser = body_parser.json();
 urlencoded_parser = body_parser.urlencoded({extended:true});
-trainedClassifier = model.trainClassifier();
+var classifier;
 app.use(json_parser, urlencoded_parser);
 
 
-app.get('/', function(req,res){
+app.get('/', function(req,res)
+{
+	if(classifier == undefined)
+	{
+			trainClassifier();
+	}
 	res.sendFile(path.join(__dirname+'/talk.html'));
 });
 
@@ -161,7 +165,7 @@ wss.on('connection', function(wsn)
     if(msg_obj.to == 2)
     {
       msg_obj.to = msg_obj.from
-      msg_obj.message = model.getResponseToQuestion(trainedClassifier,msg_obj.message);
+      msg_obj.message = getResponseToQuestion(msg_obj.message);
     }
     msg_obj.status_code = 200;
     wsn_to = connections[msg_obj.to];
@@ -180,6 +184,51 @@ wss.on('connection', function(wsn)
 
 });
 
+function getResponseToQuestion(question)
+{
+    //sleep.sleep(5);
+    var res = classifier.classify(question);
+    return res.label;
+}
+
+function trainClassifier()
+{
+  classifier = new BrainJSClassifier();
+  var query = "select * from Intellibot.TrainingData";
+  var connection = mysql.createConnection({
+      host : 'localhost',
+      user : 'root',
+      password : globals.databasePassword,
+      database : 'EntroChef'
+    });
+
+    connection.connect(
+      function(err)
+      {
+      }
+    );
+
+    connection.query(query, function(err,rows,fields)
+  	{
+      if(err)
+      {
+        console.log("Internal server error");
+        console.log(err);
+      }
+  		if(rows.length <= 0)
+  		{
+        console.log("Internal server error");
+  		}
+  		else
+  		{
+        for(i=0;i<rows.length;i++)
+        {
+            classifier.addDocument(rows[i].question.toString(),rows[i].answer.toString());
+        }
+        classifier.train();
+  		}
+  	});
+	}
 
 server.on('request', app);
 server.listen(8000, function(){
