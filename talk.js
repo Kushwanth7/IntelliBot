@@ -3,28 +3,24 @@ app = angular.module("talket",['ngMaterial', 'ngRoute']);
 app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", function($scope, $http, $mdSidenav, $mdToast){
 
 	$scope.user_list = [];
+	$scope.err = 0;
+	$scope.redirecting = 0;
+	$scope.busy = 0;
+	$scope.hideSignUpButton = false;
+	$scope.redirectingRegister = 0;
+	$scope.errRegister = 0;
 
-	$scope.signUpUser = function(name)
+	$scope.login = function(user)
 	{
-		if (name===undefined || name.length == 0)
+		$http.post('/login', {
+		user: user
+	}).then(function(response)
 		{
-			$mdToast.show(
-				$mdToast.simple()
-				.position('end')
-				.textContent("Please enter a valid name")
-				.hideDelay(3000)
-			);
-		} else {
-			$http({
-				method: "POST",
-				url: "register",
-				data: {
-					phone_number:name
-				}
-			}).then(function(response){
-				window.location.hash="#/chat";
-				$scope.my_details = response.data.user;
-				$scope.chat($scope.my_details);
+			$scope.hideSignUpButton = true;
+			$scope.redirecting = 1;
+			window.location.hash="#/chat";
+			$scope.my_details = response.data.user;
+			$scope.chat($scope.my_details);
 					$http({
 						method: "GET",
 						url: "user_list",
@@ -32,10 +28,32 @@ app.controller("talketrl", ["$scope", "$http", "$mdSidenav", "$mdToast", functio
 
 						$scope.user_list = success.data.user_list;
 
-					}, function(error){console.error(error)});
+					}, function(error)
+					{
+						console.log(error);
+					});
 
-			}, function(error){});
-		}
+			}, function(error)
+			{
+				$scope.err=1;
+				$scope.errMessage = error.data;
+			});
+	}
+
+	$scope.signUpUser = function(user)
+	{
+		$http.post('/register', {
+		user: user
+	}).then(function(response)
+		{
+			window.location.hash="#/";
+		},function(error)
+		{
+			console.error(error)
+			$scope.errRegister = 1;
+			$scope.errMessage = error.data;
+		});
+
 	};
 
 	$scope.showSideNav = function(){

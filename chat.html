@@ -4,19 +4,18 @@
 			<md-content>
 				<div style="padding:2em">
 					<md-radio-group ng-model="to_phone_number">
-						<md-radio-button ng-repeat="user in user_list" ng-value="user.id" ng-disabled="user.id == my_details.id">
+						<md-radio-button ng-repeat="user in user_list" ng-value="user.id" ng-disabled="user.id == my_details.id || user.id == 1">
 							{{user.phone_number}}
 						</md-radio-button>
 					</md-list>
 				</div>
 			</md-content>
-		<div style="padding:1em"> Message to : {{to_phone_number}}</div>
 		</div>
 	</div>
 	<div class="chat-box md-whiteframe-z2">
 		<div id="chatLog" class="chat-log"></div>
 		<div class="chat-form">
 			<input type="text" placeholder="Enter message" value="" class="msg-input" id="chatInput" ng-keypress="sendMsgHandler($event, to_phone_number)">
-		</div> 
+		</div>
 	</div>
 </div>

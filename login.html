@@ -1,0 +1,16 @@
+<div layout layout-align="center">
+	<form layout="column" layout-align="center center">
+		<md-input-container flex-offset="5" >
+			<input type="text" ng-model="user.name" placeholder="Enter your name" required>
+		</md-input-container>
+		<md-input-container flex-offset="5">
+			<input ng-model="user.password" type="password" placeholder="Enter the password" required>
+		</md-input-container>
+		<md-card-actions layout layout-align="end center">
+			<div class="md-caption" style="color:#3F51B5;margin-right:10%;" ng-show="busy">Please wait...</div>
+			<div class="md-caption" style="color:red" ng-show="err">{{errMessage}}</div>
+			<div class="md-caption" style="color:green;" ng-show="redirecting">Welcome Aboard! Please wait...</div>
+			<md-button ng-click="login(user)">Login</md-button>
+		</md-card-actions>
+	</form>
+</div>

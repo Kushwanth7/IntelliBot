@@ -5,19 +5,13 @@ url = require('url');
 path = require('path');
 webSocket = require('ws');
 model = require('./model.js');
-
+mysql = require('mysql');
 server = http.createServer();
-
+globals = require('./globals');
 app = express();
 
-user ={};
-users = [];
-count = 0;
+user = {};
 
-ta_user = {};
-ta_user.id = ++count;
-ta_user.phone_number = "TA";
-users.push(ta_user);
 
 app.use(express.static(path.join(__dirname+'/')));
 
@@ -31,28 +25,103 @@ app.get('/', function(req,res){
 	res.sendFile(path.join(__dirname+'/talk.html'));
 });
 
+app.post('/login', function(req,res)
+{
+	userObj = req.body.user;
+	var query = "select id,phone_number,userPassword from Intellibot.UserProfile where phone_number = " + "'" + userObj.name + "'";
+	var connection = mysql.createConnection({
+		host : 'localhost',
+		user : 'root',
+		password : globals.databasePassword,
+		database : 'EntroChef'
+	});
 
-app.post('/register', function(req, res){
+	connection.connect(
+		function(err)
+		{
+		}
+	);
 
-	user = {};
-	user.id = ++count;
-	user.phone_number = req.body.phone_number;
-	users.push(user);
-
-	response = {};
-	response.success = true;
-	response.user = user;
-
-	res.send(JSON.stringify(response));
-
+	connection.query(query, function(err,rows,fields)
+	{
+		if(rows.length <= 0)
+		{
+			//User is not registered
+			res.status(400).end("user is not registered");
+		}
+		else
+		{
+			var returnedObj = rows[0];
+			if(returnedObj.userPassword != userObj.password)
+			{
+				res.status(401).end("Incorrect user name or password");
+			}
+			else
+			{
+				response = {};
+				response.success = true;
+				user.id = returnedObj.id;
+				user.phone_number = returnedObj.phone_number;
+				response.user = user;
+				res.send(JSON.stringify(response));
+			}
+		}
+	});
 });
 
-app.get('/user_list', function(req, res){
-	response = {};
-	response.success=true;
-	response.user_list=users;
-	res.send(JSON.stringify(response));
+app.post('/register', function(req, res)
+{
+		var userObj = req.body.user;
+		var query = "insert into Intellibot.UserProfile(phone_number,userPassword,isProfessor) values(" + "'" + userObj.name + "','" + userObj.password + "'," + "false)";
+		var connection = mysql.createConnection({
+			host : 'localhost',
+			user : 'root',
+			password : globals.databasePassword,
+			database : 'EntroChef'
+		});
 
+		connection.connect(
+			function(err)
+			{
+			}
+		);
+
+		connection.query(query, function(err,rows,fields)
+		{
+			if(err)
+			{
+				res.status(400).end("User already registered");
+			}
+			else
+			{
+				res.status(200).end("OK");
+			}
+		});
+});
+
+app.get('/user_list', function(req, res)
+{
+	var query = "select * from Intellibot.UserProfile";
+	var connection = mysql.createConnection({
+		host : 'localhost',
+		user : 'root',
+		password : globals.databasePassword,
+		database : 'EntroChef'
+	});
+
+	connection.connect(
+		function(err)
+		{
+		}
+	);
+
+	connection.query(query, function(err,rows,fields)
+	{
+		response = {};
+		response.success=true;
+		response.user_list=rows;
+		res.send(JSON.stringify(response));
+	});
 });
 
 function broadcast(broadcast_msg_obj, from)
@@ -76,7 +145,6 @@ wss.on('connection', function(wsn)
   //User is the object who is logged in
 	wsn.user_details = user;
 	connections[user.id] = wsn;
-
 	request = wsn.upgradeReq;
 	if (request.headers.origin != 'http://localhost:8000') {
 		wsn.close();
@@ -90,7 +158,7 @@ wss.on('connection', function(wsn)
 	wsn.on("message", function(msg)
   {
 		msg_obj = JSON.parse(msg);
-    if(msg_obj.to == 1)
+    if(msg_obj.to == 2)
     {
       msg_obj.to = msg_obj.from
       msg_obj.message = model.getResponseToQuestion(trainedClassifier,msg_obj.message);
