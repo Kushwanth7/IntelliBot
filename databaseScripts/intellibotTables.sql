@@ -9,11 +9,11 @@ CREATE TABLE IF NOT EXISTS Intellibot.UserProfile
 );
 
 insert into Intellibot.UserProfile(phone_number,userPassword,isProfessor)
-values("Jebara","password123",true);
+values("Delta Representative","password123",true);
 
 insert into Intellibot.UserProfile(phone_number,userPassword,isProfessor)
-values("TA","password123",false);
+values("Customer","password123",true);
 
-select id,phone_number,userPassword from Intellibot.UserProfile where phone_number = 'jebara'
+select id,phone_number,userPassword from Intellibot.UserProfile
 
 

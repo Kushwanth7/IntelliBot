@@ -7,6 +7,7 @@ webSocket = require('ws');
 mysql = require('mysql');
 server = http.createServer();
 globals = require('./globals');
+sleep = require('sleep');
 app = express();
 var BrainJSClassifier = require('natural-brain');
 user = {};
@@ -162,7 +163,7 @@ wss.on('connection', function(wsn)
 	wsn.on("message", function(msg)
   {
 		msg_obj = JSON.parse(msg);
-    if(msg_obj.to == 2)
+    if(msg_obj.to == 1)
     {
       msg_obj.to = msg_obj.from
       msg_obj.message = getResponseToQuestion(msg_obj.message);
@@ -186,7 +187,7 @@ wss.on('connection', function(wsn)
 
 function getResponseToQuestion(question)
 {
-    //sleep.sleep(5);
+    sleep.sleep(3);
     var res = classifier.classify(question);
     return res.label;
 }
@@ -194,6 +195,11 @@ function getResponseToQuestion(question)
 function trainClassifier()
 {
   classifier = new BrainJSClassifier();
+	classifier.addDocument("Can I bring my puppy on the flight?","Pets are allowed only \n on selected flights, \n please share your booking id so that I can check whether it is allowed or not on your flight");
+	classifier.addDocument("AEIJK5","Thank you, Can you also provide your last name");
+	classifier.addDocument("Shantharam","Thank you, Just a second I am pulling up your booking details");
+	classifier.train();
+	/*
   var query = "select * from Intellibot.TrainingData";
   var connection = mysql.createConnection({
       host : 'localhost',
@@ -228,6 +234,7 @@ function trainClassifier()
         classifier.train();
   		}
   	});
+		*/
 	}
 
 server.on('request', app);
