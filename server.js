@@ -197,7 +197,8 @@ function trainClassifier()
   classifier = new BrainJSClassifier();
 	classifier.addDocument("Can I bring my puppy on the flight?","Pets are allowed only \n on selected flights, \n please share your booking id so that I can check whether it is allowed or not on your flight");
 	classifier.addDocument("AEIJK5","Thank you, Can you also provide your last name");
-	classifier.addDocument("Shantharam","Thank you, Just a second I am pulling up your booking details");
+	classifier.addDocument("Shantharam","Mr. Kushwanth, great news pets are allowed on your flight to San Francisco, Is there anything else I can help you with today");
+	classifier.addDocument("No thank you", "You have a good day and safe travels to San Francisco, Bye ")
 	classifier.train();
 	/*
   var query = "select * from Intellibot.TrainingData";
