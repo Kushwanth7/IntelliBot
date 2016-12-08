@@ -187,7 +187,7 @@ wss.on('connection', function(wsn)
 
 function getResponseToQuestion(question)
 {
-    sleep.sleep(3);
+    sleep.sleep(4);
     var res = classifier.classify(question);
     return res.label;
 }
@@ -195,10 +195,11 @@ function getResponseToQuestion(question)
 function trainClassifier()
 {
   classifier = new BrainJSClassifier();
-	classifier.addDocument("Can I bring my puppy on the flight?","Pets are allowed only \n on selected flights, \n please share your booking id so that I can check whether it is allowed or not on your flight");
-	classifier.addDocument("AEIJK5","Thank you, Can you also provide your last name");
-	classifier.addDocument("Shantharam","Mr. Kushwanth, great news pets are allowed on your flight to San Francisco, Is there anything else I can help you with today");
-	classifier.addDocument("No thank you", "You have a good day and safe travels to San Francisco, Bye ")
+	classifier.addDocument("I need to cancel my ABC monthly subscription","Hi this is Alfred from customer service, that is bad news, would you be interested in sharing the reason for cancelling the subscription");
+	classifier.addDocument("I don't use it frequently","No issues, could you please share your sunscription id so that I can process your cancellation");
+	classifier.addDocument("AEIJDK5","Thanks, could you also please share the last name associated with the account");
+	classifier.addDocument("Smith", "Mr. Will I was able to pull up your subscription information, I have intiated the cancellation subscription, you should be receiving a confirmation mail regarding the same in 24 hours, is there anything else I can help you with today");
+	classifier.addDocument("No thank you", "You have a great day then Will, We hope to serve you soon again, Bye");
 	classifier.train();
 	/*
   var query = "select * from Intellibot.TrainingData";

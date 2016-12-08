@@ -14,6 +14,10 @@ values("Delta Representative","password123",true);
 insert into Intellibot.UserProfile(phone_number,userPassword,isProfessor)
 values("Customer","password123",true);
 
+insert into Intellibot.UserProfile(phone_number,userPassword,isProfessor)
+values("Tracy","password123",true);
+
+
 select id,phone_number,userPassword from Intellibot.UserProfile
 
 

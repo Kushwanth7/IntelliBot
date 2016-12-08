@@ -2,7 +2,7 @@
 	display: inline;
 	width: 0;
 	height: 0;
-	border-top: 7px solid grey; 
+	border-top: 7px solid grey;
 }
 .arrow-right{
 	border-right: 8px solid transparent;
@@ -47,7 +47,7 @@
 	max-width: 75%;
 	display: block;
     padding: 2%;
-    word-break: break-all;
+    word-break: keep-all;
     border-radius: 3px;
 }
 .float-right{

@@ -4,7 +4,7 @@
 			<md-content>
 				<div style="padding:2em">
 					<md-radio-group ng-model="to_phone_number">
-						<md-radio-button ng-repeat="user in user_list" ng-value="user.id" ng-hide="user.id == my_details.id	">
+						<md-radio-button ng-repeat="user in user_list" ng-value="user.id" ng-hide="user.id == my_details.id || user.id == 2 || user.id == 3">
 							{{user.phone_number}}
 						</md-radio-button>
 					</md-list>
